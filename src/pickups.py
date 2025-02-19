@@ -10,9 +10,9 @@ class Item:
         return self.symbol
 
 
-pickups = [Item("carrot", 20, "V"), Item("apple",20,"5"), Item("strawberry",20,"8"),
-           Item("cherry",20,"9"), Item("watermelon",20,"O"), Item("radish",20,"Q"),
-            Item("cucumber",20,"J"), Item("meatball",20,"W")]
+pickups = [Item("carrot"), Item("apple"), Item("strawberry"),
+           Item("cherry"), Item("watermelon"), Item("radish"),
+            Item("cucumber"), Item("meatball"), Item("trap", -10, "X"), Item("spade", 0, "P")]
 
 
 def randomize(grid):

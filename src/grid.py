@@ -69,7 +69,7 @@ class Grid:
             y = 2
         for j in range(self.extra_wall_width):
             self.set(x, y, self.wall)
-            print(f"make wall at x={x}, y={y}")
+            #print(f"make wall at x={x}, y={y}")
             x += 1
 
     def make_extra_wall_y(self):
@@ -86,7 +86,7 @@ class Grid:
             x = 2
         for j in range(self.extra_wall_height):
             self.set(x, y, self.wall)
-            print(f"make wall at x={x}, y={y}")
+            #print(f"make wall at x={x}, y={y}")
             y += 1
 
     # Används i filen pickups.py
