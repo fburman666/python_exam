@@ -64,5 +64,6 @@ while not command.casefold() in ["q", "x"]:
 
 
 
+
 # Hit kommer vi när while-loopen slutar
 print(f"Thank you for playing! You got the score: {score} points")
