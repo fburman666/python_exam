@@ -25,3 +25,15 @@ def randomize(grid):
             if grid.is_empty(x, y):
                 grid.set(x, y, item)
                 break  # avbryt while-loopen, fortsätt med nästa varv i for-loopen
+
+def add_bonus_fruit(grid):
+    """Adding one extra pineaple to the grid"""
+    bonus_fruit = Item("pineaple")
+    while True:
+        x = grid.get_random_x()
+        y = grid.get_random_y()
+        if grid.is_empty(x, y):
+            grid.set(x, y, bonus_fruit)
+            print(f"Adding one more fruit to the salad: {bonus_fruit.name}")
+            break
+

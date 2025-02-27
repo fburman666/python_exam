@@ -1,12 +1,13 @@
 from operator import truediv
 from .grid import Grid
 from .player import *
-from . import pickups
+from .pickups import *
 from .functions import *
 
 player = Player(18, 5)
 score = 0
 inventory = []
+game_counter = 1
 
 
 g = Grid()
@@ -17,7 +18,7 @@ g.make_extra_wall_y()
 g.make_extra_wall_x()
 pickups.randomize(g)
 
-def move_player(direction, grid, pscore=0):
+def move_player(direction, grid, pscore):
     """How to move the player in direction direction[x,y]"""
     maybe_item = grid.get(player.pos_x + direction[0], player.pos_y - direction[1])
     player.move(direction[0], -direction[1])
@@ -25,13 +26,13 @@ def move_player(direction, grid, pscore=0):
     if isinstance(maybe_item, pickups.Item):
         # we found something
         pscore += maybe_item.value
-        print(f"Du hittade en {maybe_item.name}, och tjänar {maybe_item.value} poäng.")
+        print(f"You found a {maybe_item.name}, and made {maybe_item.value} points.")
         # g.set(player.pos_x, player.pos_y, g.empty)
         if maybe_item.name == "exit":
             return pscore
         if maybe_item.name != "trap":
             grid.clear(player.pos_x, player.pos_y)
-            print(f"Now we clear position {player.pos_x,player.pos_y}")
+            #print(f"Now we clear position {player.pos_x,player.pos_y}")
             inventory.append(maybe_item)
             if maybe_item.name == "spade":
                 player.add_shovel()
@@ -43,7 +44,7 @@ def move_player(direction, grid, pscore=0):
 command = "a"
 # Loopa tills användaren trycker Q eller X.
 while not command.casefold() in ["q", "x"]:
-    print_status(g, score)
+    print_status(g, score, game_counter)
 
     command = input("Use WASD to move, Q/X to quit. ")
     command = command.casefold()[:1]
@@ -63,7 +64,9 @@ while not command.casefold() in ["q", "x"]:
         break
 
     score = move_player(my_direction, g, score) #spelaren flyttas i riktningen my_direction
-
-
+    game_counter += 1
+    if game_counter % 25 == 0 and game_counter > 0:
+        print("Adding more fruits")
+        add_bonus_fruit(g)
 # End of while-loop
 print(f"Thank you for playing! You got the score: {score} points")
