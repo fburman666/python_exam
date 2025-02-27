@@ -12,7 +12,8 @@ class Item:
 
 pickups = [Item("carrot"), Item("apple"), Item("strawberry"),
            Item("cherry"), Item("watermelon"), Item("radish"),
-            Item("cucumber"), Item("meatball"), Item("trap", -10, "X"), Item("spade", 0, "P")]
+            Item("cucumber"), Item("meatball"), Item("trap", -10, "X"),
+           Item("spade", 0, "P"),Item("exit", 0, "E")]
 
 
 def randomize(grid):

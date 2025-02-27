@@ -8,6 +8,7 @@ class Grid:
     extra_wall_height = 5
     empty = "."  # Tecken för en tom ruta
     wall = "■"   # Tecken för en ogenomtränglig vägg
+    extra_wall = "#" # Tecken för en ogenomtränglig extra-vägg
 
     def __init__(self):
         """Skapa ett objekt av klassen Grid"""
@@ -68,7 +69,7 @@ class Grid:
         if y == 0 or y==1:
             y = 2
         for j in range(self.extra_wall_width):
-            self.set(x, y, self.wall)
+            self.set(x, y, self.extra_wall)
             #print(f"make wall at x={x}, y={y}")
             x += 1
 
@@ -85,7 +86,7 @@ class Grid:
         if x == 0 or x == 1:
             x = 2
         for j in range(self.extra_wall_height):
-            self.set(x, y, self.wall)
+            self.set(x, y, self.extra_wall)
             #print(f"make wall at x={x}, y={y}")
             y += 1
 

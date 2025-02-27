@@ -1,5 +1,4 @@
 from operator import truediv
-
 from .grid import Grid
 from .player import *
 from . import pickups
@@ -18,22 +17,26 @@ g.make_extra_wall_y()
 g.make_extra_wall_x()
 pickups.randomize(g)
 
-#flytta spelaren i riktning: direction[x,y]
 def move_player(direction, grid, pscore=0):
+    """How to move the player in direction direction[x,y]"""
     maybe_item = grid.get(player.pos_x + direction[0], player.pos_y - direction[1])
     player.move(direction[0], -direction[1])
     pscore -= 1
     if isinstance(maybe_item, pickups.Item):
         # we found something
         pscore += maybe_item.value
-        print(f"You found a {maybe_item.name}, and get {maybe_item.value} points.")
+        print(f"Du hittade en {maybe_item.name}, och tjänar {maybe_item.value} poäng.")
         # g.set(player.pos_x, player.pos_y, g.empty)
+        if maybe_item.name == "exit":
+            return pscore
         if maybe_item.name != "trap":
             grid.clear(player.pos_x, player.pos_y)
             print(f"Now we clear position {player.pos_x,player.pos_y}")
             inventory.append(maybe_item)
             if maybe_item.name == "spade":
                 player.add_shovel()
+
+
     return pscore
 
 
@@ -53,17 +56,14 @@ while not command.casefold() in ["q", "x"]:
         my_direction = [-1,0]
     elif command == "s" and player.can_move(0, 1, g, inventory):  # move down
         my_direction = [0,-1]
-    elif command == "i": #inventory visas
+    elif command == "i":
         print_inventory(inventory)
 
-    #spelaren flyttas i riktningen my_direction
-    score = move_player(my_direction, g, score)
+    if exit_game(inventory, score, g, player):
+        break
+
+    score = move_player(my_direction, g, score) #spelaren flyttas i riktningen my_direction
 
 
-
-
-
-
-
-# Hit kommer vi när while-loopen slutar
+# End of while-loop
 print(f"Thank you for playing! You got the score: {score} points")
